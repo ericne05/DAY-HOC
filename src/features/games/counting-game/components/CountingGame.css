@@ -1,0 +1,163 @@
+.counting-game-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 70vh;
+}
+
+.counting-stage {
+  background: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--card-shadow);
+  width: 100%;
+  max-width: 800px;
+  padding: 2.5rem;
+  text-align: center;
+  border: 8px solid var(--primary-pink);
+  position: relative;
+  display: none;
+}
+
+.counting-stage.active {
+  display: block;
+  animation: stageFadeIn 0.5s ease-out forwards;
+}
+
+.wizard-avatar {
+  margin: 1rem auto;
+  animation: wizardFloat 2.5s infinite ease-in-out;
+  display: block;
+  width: 140px;
+  height: 140px;
+}
+
+@keyframes wizardFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.counting-instruction-box {
+  background: #fdf2f8;
+  border: 4px solid var(--primary-pink);
+  border-radius: var(--border-radius-md);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #9d174d;
+  font-family: var(--font-heading);
+}
+
+/* Counting items area */
+.counting-playground {
+  position: relative;
+  background: #f8fafc;
+  padding: 2.5rem;
+  border-radius: var(--border-radius-md);
+  border: 3px dashed #cbd5e1;
+  min-height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.items-canvas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px;
+}
+
+.counting-item-emoji {
+  font-size: 3.5rem;
+  display: inline-block;
+  animation: itemPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  user-select: none;
+}
+
+@keyframes itemPop {
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
+}
+
+/* Selectable options */
+.options-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.option-btn {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: white;
+  border: 4px solid var(--primary-blue);
+  color: var(--primary-blue);
+  border-radius: var(--border-radius-md);
+  padding: 1rem 0;
+  cursor: pointer;
+  box-shadow: 0 6px 0 var(--primary-blue-light);
+  transition: all 0.1s;
+}
+
+.option-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 var(--primary-blue-light);
+  background: var(--primary-blue-light);
+}
+
+.option-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 var(--primary-blue-light);
+}
+
+/* Color schemes for options to make them look cheerful */
+.option-btn:nth-child(1) { border-color: var(--primary-pink); color: var(--primary-pink); box-shadow: 0 6px 0 var(--primary-pink-light); }
+.option-btn:nth-child(1):hover { background: var(--primary-pink-light); }
+.option-btn:nth-child(2) { border-color: var(--primary-blue); color: var(--primary-blue); box-shadow: 0 6px 0 var(--primary-blue-light); }
+.option-btn:nth-child(2):hover { background: var(--primary-blue-light); }
+.option-btn:nth-child(3) { border-color: var(--primary-yellow-dark); color: var(--primary-yellow-dark); box-shadow: 0 6px 0 var(--primary-yellow-light); }
+.option-btn:nth-child(3):hover { background: var(--primary-yellow-light); }
+.option-btn:nth-child(4) { border-color: var(--primary-green); color: var(--primary-green); box-shadow: 0 6px 0 var(--primary-green-light); }
+.option-btn:nth-child(4):hover { background: var(--primary-green-light); }
+
+.option-btn.shake-wrong-option {
+  animation: wrongOptionShake 0.3s ease-in-out;
+}
+
+@keyframes wrongOptionShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+/* Confetti particles */
+.counting-confetti {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 5;
+  animation: confettiExplode 1s ease-out forwards;
+}
+
+@keyframes confettiExplode {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy)) rotate(360deg) scale(0);
+    opacity: 0;
+  }
+}

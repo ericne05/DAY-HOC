@@ -1,0 +1,107 @@
+.registration-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  width: 100%;
+  padding: 1rem;
+}
+
+.registration-card {
+  background: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--card-shadow);
+  border: 8px solid var(--primary-yellow);
+  padding: 3rem 2rem;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+.registration-title {
+  color: var(--primary-pink);
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px var(--primary-yellow-light);
+}
+
+.registration-icon-wrapper {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.school-bag-svg {
+  animation: bagWobble 2s infinite ease-in-out;
+}
+
+@keyframes bagWobble {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(5deg) scale(1.05); }
+}
+
+.registration-instruction {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-group label {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--text-dark);
+}
+
+.input-group input {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  padding: 1rem 1.2rem;
+  border-radius: var(--border-radius-md);
+  border: 3px solid #e2e8f0;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+  border-color: var(--primary-blue);
+}
+
+.registration-btn {
+  background: linear-gradient(180deg, var(--primary-pink) 0%, var(--primary-pink-hover) 100%);
+  color: white;
+  border: none;
+  padding: 1.2rem 2.5rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #d63031;
+  transition: all 0.1s;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.registration-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 #d63031;
+}
+
+.registration-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #d63031;
+}

@@ -1,0 +1,134 @@
+.animal-game-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 70vh;
+}
+
+.animal-stage {
+  background: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--card-shadow);
+  width: 100%;
+  max-width: 800px;
+  padding: 2.5rem;
+  text-align: center;
+  border: 8px solid var(--primary-purple);
+  position: relative;
+  display: none;
+}
+
+.animal-stage.active {
+  display: block;
+  animation: stageFadeIn 0.5s ease-out forwards;
+}
+
+.game-mascot {
+  margin: 1rem auto;
+  animation: mascotBounce 2.5s infinite ease-in-out;
+  display: block;
+  width: 140px;
+  height: 140px;
+}
+
+@keyframes mascotBounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-10px) scale(1.03); }
+}
+
+.riddle-speech-bubble {
+  background: #f3e8ff;
+  border: 4px solid var(--primary-purple);
+  border-radius: var(--border-radius-md);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #6b21a8;
+  font-family: var(--font-heading);
+}
+
+/* Playground area */
+.animal-playground {
+  position: relative;
+  background: #f8fafc;
+  padding: 2.5rem;
+  border-radius: var(--border-radius-md);
+  border: 3px dashed #cbd5e1;
+  min-height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.animal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.animal-option-card {
+  background: white;
+  border: 4px solid #e2e8f0;
+  border-radius: var(--border-radius-md);
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.animal-option-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--primary-purple);
+  box-shadow: 0 12px 20px var(--primary-purple-light);
+}
+
+.animal-option-card:active {
+  transform: translateY(-2px) scale(0.97);
+}
+
+.animal-emoji {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.animal-label {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+/* Wrong selection animation */
+.animal-option-card.shake-wrong-animal {
+  animation: wrongAnimalShake 0.3s ease-in-out;
+  border-color: var(--primary-pink);
+  box-shadow: 0 8px 15px var(--primary-pink-light);
+}
+
+@keyframes wrongAnimalShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+/* Particle explosion */
+.animal-pop-confetti {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 5;
+  animation: confettiExplode 1s ease-out forwards;
+}

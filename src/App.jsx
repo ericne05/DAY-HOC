@@ -1,8 +1,8 @@
 import React from 'react';
-import ComingSoonPage from './features/coming-soon/pages/ComingSoonPage';
+import GameDashboard from './features/games/components/GameDashboard';
 
 function App() {
-  return <ComingSoonPage />;
+  return <GameDashboard />;
 }
 
 export default App;
