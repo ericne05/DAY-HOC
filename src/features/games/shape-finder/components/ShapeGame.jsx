@@ -27,6 +27,7 @@ export default function ShapeGame({ onFinish, onExit }) {
   const [targetShape, setTargetShape] = useState(null);
   const [wrongItems, setWrongItems] = useState({}); // tracker for shaken incorrect items
   const [popEffects, setPopEffects] = useState([]);
+  const [isTransitioning, setIsTransitioning] = useState(false); // click lock
   const gameBoardRef = useRef(null);
 
   // Web Audio Sound Synthesizer
@@ -44,7 +45,7 @@ export default function ShapeGame({ onFinish, onExit }) {
         osc.type = 'sine';
         osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
         osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1); // E5
-        gain.gain.setValueAtTime(0.25, ctx.currentTime);
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
         osc.start();
         osc.stop(ctx.currentTime + 0.4);
@@ -52,7 +53,7 @@ export default function ShapeGame({ onFinish, onExit }) {
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(220, ctx.currentTime); // A3
         osc.frequency.linearRampToValueAtTime(140, ctx.currentTime + 0.3);
-        gain.gain.setValueAtTime(0.35, ctx.currentTime);
+        gain.gain.setValueAtTime(0.3, ctx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
         osc.start();
         osc.stop(ctx.currentTime + 0.3);
@@ -78,6 +79,7 @@ export default function ShapeGame({ onFinish, onExit }) {
   const handleStartGame = () => {
     setLevel(1);
     setScore(0);
+    setIsTransitioning(false);
     setScreen('play');
   };
 
@@ -118,6 +120,8 @@ export default function ShapeGame({ onFinish, onExit }) {
 
   // Check child answer
   const checkAnswer = (selected, e, index) => {
+    if (isTransitioning) return; // ignore clicks during transition
+
     let isCorrect = false;
 
     if (level === 1) {
@@ -135,6 +139,7 @@ export default function ShapeGame({ onFinish, onExit }) {
     if (isCorrect) {
       playSound('correct');
       setScore((prev) => prev + 10);
+      setIsTransitioning(true); // lock clicks immediately
       
       // Spawn particle effect
       if (gameBoardRef.current) {
@@ -147,14 +152,16 @@ export default function ShapeGame({ onFinish, onExit }) {
       setTimeout(() => {
         if (level < 5) {
           setLevel((prev) => prev + 1);
+          setIsTransitioning(false); // unlock click for next level
         } else {
           playSound('win');
           setScreen('end');
+          setIsTransitioning(false);
         }
       }, 1000);
     } else {
       playSound('wrong');
-      // Trigger shaking animation by keying
+      // Trigger shaking animation
       setWrongItems((prev) => ({ ...prev, [index]: true }));
       setTimeout(() => {
         setWrongItems((prev) => ({ ...prev, [index]: false }));
@@ -195,11 +202,11 @@ export default function ShapeGame({ onFinish, onExit }) {
   const getSpeechText = () => {
     if (!targetShape) return '';
     if (level === 1) {
-      return `🧙♂️ "Úm ba la... Hãy tìm cho cô ${targetShape.type.name} nào!"`;
+      return `Hãy tìm giúp cô ${targetShape.type.name} nhé!`;
     } else if (level <= 3) {
-      return `🧙♂️ "Biến hóa! Tìm giúp cô ${targetShape.type.name} ${targetShape.color.name} nhé!"`;
+      return `Hãy tìm giúp cô ${targetShape.type.name} màu ${targetShape.color.name.toLowerCase()} nhé!`;
     } else {
-      return `🧙♂️ "Thử thách đây! Ai tìm được ${targetShape.type.name} ${targetShape.color.name} dáng ${targetShape.size.name}?"`;
+      return `Hãy tìm giúp cô ${targetShape.type.name} màu ${targetShape.color.name.toLowerCase()} cỡ ${targetShape.size.name.toLowerCase()} nhé!`;
     }
   };
 
@@ -231,9 +238,23 @@ export default function ShapeGame({ onFinish, onExit }) {
       {screen === 'play' && (
         <div className="game-stage active">
           <div className="game-status-board">
-            <span className="level-indicator">Vòng chơi: {level}/5 🌟</span>
+            {/* Playful Animated Stars Progress Bar */}
+            <div className="star-progress-container">
+              {Array.from({ length: 5 }).map((_, idx) => {
+                const isPassed = idx + 1 < level;
+                const isActive = idx + 1 === level;
+                return (
+                  <span
+                    key={idx}
+                    className={`progress-star ${isPassed ? 'passed' : ''} ${isActive ? 'active' : ''}`}
+                  >
+                    ⭐
+                  </span>
+                );
+              })}
+            </div>
             <button className="exit-top-btn" onClick={onExit}>Thoát 🏠</button>
-            <span className="score-indicator">⭐ Điểm: {score}</span>
+            <span className="score-indicator">Điểm: {score} ⭐</span>
           </div>
 
           <div className="witch-instruction-box">

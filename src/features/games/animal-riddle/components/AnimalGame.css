@@ -37,12 +37,83 @@
   50% { transform: translateY(-10px) scale(1.03); }
 }
 
+/* Status board and Star progress tracker */
+.game-status-board {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  background: #fffbeb;
+  padding: 10px 20px;
+  border-radius: var(--border-radius-md);
+  border: 2px dashed var(--primary-purple);
+  font-family: var(--font-heading);
+}
+
+.star-progress-container {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.progress-star {
+  font-size: 1.8rem;
+  color: #e2e8f0;
+  transition: transform 0.3s ease, color 0.3s ease;
+  display: inline-block;
+}
+
+.progress-star.passed {
+  color: var(--primary-yellow);
+  text-shadow: 0 0 8px rgba(255, 209, 92, 0.8);
+  animation: starLightUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.progress-star.active {
+  color: var(--primary-yellow);
+  text-shadow: 0 0 10px rgba(255, 209, 92, 0.5);
+  animation: starActiveWobble 0.8s infinite alternate ease-in-out;
+}
+
+@keyframes starLightUp {
+  0% { transform: scale(0.3) rotate(-30deg); }
+  70% { transform: scale(1.4) rotate(15deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes starActiveWobble {
+  0% { transform: scale(1) rotate(-5deg); }
+  100% { transform: scale(1.25) rotate(10deg); }
+}
+
+.score-indicator {
+  color: var(--primary-pink);
+}
+
+.exit-top-btn {
+  background: #f1f5f9;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+.exit-top-btn:hover {
+  background: #e2e8f0;
+}
+
+/* Comic Speech Bubble Box */
 .riddle-speech-bubble {
+  position: relative;
   background: #f3e8ff;
   border: 4px solid var(--primary-purple);
   border-radius: var(--border-radius-md);
   padding: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   min-height: 90px;
   display: flex;
   align-items: center;
@@ -51,6 +122,28 @@
   font-weight: 700;
   color: #6b21a8;
   font-family: var(--font-heading);
+}
+
+.riddle-speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px;
+  border-style: solid;
+  border-color: var(--primary-purple) transparent transparent transparent;
+}
+
+.riddle-speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: #f3e8ff transparent transparent transparent;
 }
 
 /* Playground area */
@@ -89,7 +182,7 @@
 .animal-option-card:hover {
   transform: translateY(-8px);
   border-color: var(--primary-purple);
-  box-shadow: 0 12px 20px var(--primary-purple-light);
+  box-shadow: 0 12px 25px var(--primary-purple-light);
 }
 
 .animal-option-card:active {
@@ -133,6 +226,7 @@
   animation: confettiExplode 1s ease-out forwards;
 }
 
+/* Responsive Styles for AnimalGame on Mobile */
 @media (max-width: 768px) {
   .animal-stage {
     padding: 1.5rem 1rem;

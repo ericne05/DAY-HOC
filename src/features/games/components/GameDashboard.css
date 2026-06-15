@@ -98,7 +98,21 @@
 
 .game-menu-card:hover {
   transform: translateY(-8px);
-  box-shadow: var(--card-shadow-hover);
+}
+
+.game-menu-card.shape:hover {
+  box-shadow: 0 20px 45px rgba(255, 107, 139, 0.25);
+  border-color: var(--primary-pink);
+}
+
+.game-menu-card.count:hover {
+  box-shadow: 0 20px 45px rgba(75, 163, 255, 0.25);
+  border-color: var(--primary-blue);
+}
+
+.game-menu-card.animal:hover {
+  box-shadow: 0 20px 45px rgba(165, 94, 234, 0.25);
+  border-color: var(--primary-purple);
 }
 
 .game-card-emoji {

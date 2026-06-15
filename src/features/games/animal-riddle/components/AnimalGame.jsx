@@ -31,7 +31,7 @@ const riddlesConfig = [
     correct: { emoji: '🐘', name: 'Con Voi' },
     wrongs: [
       { emoji: '🦁', name: 'Sư Tử' },
-      { emoji: '🦒', name: 'Hươu Cao Cổ' }
+      { emoji: '🦒', name: 'Hưu Cao Cổ' }
     ]
   },
   {
@@ -76,6 +76,7 @@ export default function AnimalGame({ onFinish, onExit }) {
   const [options, setOptions] = useState([]);
   const [wrongSelections, setWrongSelections] = useState({});
   const [effects, setEffects] = useState([]);
+  const [isTransitioning, setIsTransitioning] = useState(false); // click lock
   const playgroundRef = useRef(null);
 
   // Web Audio Synthesizer
@@ -126,20 +127,18 @@ export default function AnimalGame({ onFinish, onExit }) {
   const handleStart = () => {
     setLevel(1);
     setScore(0);
+    setIsTransitioning(false);
     setScreen('play');
   };
 
   const generateLevel = () => {
-    // Pick a random riddle
     const riddle = riddlesConfig[Math.floor(Math.random() * riddlesConfig.length)];
     
-    // Shuffle options
     const listOpts = [
       { ...riddle.correct, isCorrect: true },
       ...riddle.wrongs.map(w => ({ ...w, isCorrect: false }))
     ];
 
-    // Shuffle array
     for (let i = listOpts.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [listOpts[i], listOpts[j]] = [listOpts[j], listOpts[i]];
@@ -157,9 +156,12 @@ export default function AnimalGame({ onFinish, onExit }) {
   }, [level, screen]);
 
   const checkAnswer = (selected, e, optionIdx) => {
+    if (isTransitioning) return; // lock spam click
+
     if (selected.isCorrect) {
       playSound('correct');
       setScore((prev) => prev + 10);
+      setIsTransitioning(true); // lock clicks
 
       if (playgroundRef.current) {
         const rect = playgroundRef.current.getBoundingClientRect();
@@ -171,9 +173,11 @@ export default function AnimalGame({ onFinish, onExit }) {
       setTimeout(() => {
         if (level < 5) {
           setLevel((prev) => prev + 1);
+          setIsTransitioning(false); // unlock click
         } else {
           playSound('win');
           setScreen('end');
+          setIsTransitioning(false);
         }
       }, 1200);
     } else {
@@ -241,9 +245,23 @@ export default function AnimalGame({ onFinish, onExit }) {
       {screen === 'play' && (
         <div className="animal-stage active">
           <div className="game-status-board">
-            <span className="level-indicator">Câu đố: {level}/5 ⭐</span>
+            {/* Star progress bar */}
+            <div className="star-progress-container">
+              {Array.from({ length: 5 }).map((_, idx) => {
+                const isPassed = idx + 1 < level;
+                const isActive = idx + 1 === level;
+                return (
+                  <span
+                    key={idx}
+                    className={`progress-star ${isPassed ? 'passed' : ''} ${isActive ? 'active' : ''}`}
+                  >
+                    ⭐
+                  </span>
+                );
+              })}
+            </div>
             <button className="exit-top-btn" onClick={onExit}>Thoát 🏠</button>
-            <span className="score-indicator">⭐ Điểm: {score}</span>
+            <span className="score-indicator">Điểm: {score} ⭐</span>
           </div>
 
           <div className="riddle-speech-bubble">

@@ -19,6 +19,7 @@ export default function CountingGame({ onFinish, onExit }) {
   const [options, setOptions] = useState([]);
   const [wrongOptions, setWrongOptions] = useState({});
   const [confetti, setConfetti] = useState([]);
+  const [isTransitioning, setIsTransitioning] = useState(false); // click lock
   const playgroundRef = useRef(null);
 
   // Web Audio Synth
@@ -69,6 +70,7 @@ export default function CountingGame({ onFinish, onExit }) {
   const handleStart = () => {
     setLevel(1);
     setScore(0);
+    setIsTransitioning(false);
     setScreen('play');
   };
 
@@ -99,9 +101,12 @@ export default function CountingGame({ onFinish, onExit }) {
   }, [level, screen]);
 
   const checkAnswer = (selected, e, optionIdx) => {
+    if (isTransitioning) return; // lock spam click
+
     if (selected === count) {
       playSound('correct');
       setScore((prev) => prev + 10);
+      setIsTransitioning(true); // lock clicks
 
       // Confetti effect at the center of the playground
       if (playgroundRef.current) {
@@ -114,9 +119,11 @@ export default function CountingGame({ onFinish, onExit }) {
       setTimeout(() => {
         if (level < 5) {
           setLevel((prev) => prev + 1);
+          setIsTransitioning(false); // unlock click
         } else {
           playSound('win');
           setScreen('end');
+          setIsTransitioning(false);
         }
       }, 1200);
     } else {
@@ -182,9 +189,23 @@ export default function CountingGame({ onFinish, onExit }) {
       {screen === 'play' && (
         <div className="counting-stage active">
           <div className="game-status-board">
-            <span className="level-indicator">Câu hỏi: {level}/5 ⭐</span>
+            {/* Star progress bar */}
+            <div className="star-progress-container">
+              {Array.from({ length: 5 }).map((_, idx) => {
+                const isPassed = idx + 1 < level;
+                const isActive = idx + 1 === level;
+                return (
+                  <span
+                    key={idx}
+                    className={`progress-star ${isPassed ? 'passed' : ''} ${isActive ? 'active' : ''}`}
+                  >
+                    ⭐
+                  </span>
+                );
+              })}
+            </div>
             <button className="exit-top-btn" onClick={onExit}>Thoát 🏠</button>
-            <span className="score-indicator">⭐ Điểm: {score}</span>
+            <span className="score-indicator">Điểm: {score} ⭐</span>
           </div>
 
           <div className="counting-instruction-box">
@@ -193,7 +214,7 @@ export default function CountingGame({ onFinish, onExit }) {
             )}
           </div>
 
-          {/* Playground for items display */}
+          {/* Playground for items display with a Cloud Container */}
           <div className="counting-playground" ref={playgroundRef}>
             {confetti.map((c) => (
               <div
@@ -209,16 +230,18 @@ export default function CountingGame({ onFinish, onExit }) {
               />
             ))}
 
-            <div className="items-canvas">
-              {activeItem && Array.from({ length: count }).map((_, idx) => (
-                <span
-                  key={idx}
-                  className="counting-item-emoji"
-                  style={{ animationDelay: `${idx * 0.08}s` }}
-                >
-                  {activeItem.emoji}
-                </span>
-              ))}
+            <div className="cloud-island">
+              <div className="items-canvas">
+                {activeItem && Array.from({ length: count }).map((_, idx) => (
+                  <span
+                    key={idx}
+                    className="counting-item-emoji"
+                    style={{ animationDelay: `${idx * 0.08}s` }}
+                  >
+                    {activeItem.emoji}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
 

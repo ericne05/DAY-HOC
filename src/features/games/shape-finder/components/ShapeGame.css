@@ -102,14 +102,14 @@
   background: #f8fafc;
 }
 
-/* Play screen status */
+/* Status board and Star progress tracker */
 .game-status-board {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 1.3rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   background: #fffbeb;
   padding: 10px 20px;
   border-radius: var(--border-radius-md);
@@ -117,8 +117,40 @@
   font-family: var(--font-heading);
 }
 
-.level-indicator {
-  color: var(--primary-purple);
+.star-progress-container {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.progress-star {
+  font-size: 1.8rem;
+  color: #e2e8f0;
+  transition: transform 0.3s ease, color 0.3s ease;
+  display: inline-block;
+}
+
+.progress-star.passed {
+  color: var(--primary-yellow);
+  text-shadow: 0 0 8px rgba(255, 209, 92, 0.8);
+  animation: starLightUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.progress-star.active {
+  color: var(--primary-yellow);
+  text-shadow: 0 0 10px rgba(255, 209, 92, 0.5);
+  animation: starActiveWobble 0.8s infinite alternate ease-in-out;
+}
+
+@keyframes starLightUp {
+  0% { transform: scale(0.3) rotate(-30deg); }
+  70% { transform: scale(1.4) rotate(15deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes starActiveWobble {
+  0% { transform: scale(1) rotate(-5deg); }
+  100% { transform: scale(1.25) rotate(10deg); }
 }
 
 .score-indicator {
@@ -139,13 +171,14 @@
   background: #e2e8f0;
 }
 
-/* Dialogue box */
+/* Dialogue comic speech bubble */
 .witch-instruction-box {
+  position: relative;
   background: #e3fafc;
   border: 4px solid var(--primary-blue);
   border-radius: var(--border-radius-md);
   padding: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   min-height: 90px;
   display: flex;
   align-items: center;
@@ -156,11 +189,34 @@
   font-family: var(--font-heading);
 }
 
+/* Comic speech tail */
+.witch-instruction-box::before {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px;
+  border-style: solid;
+  border-color: var(--primary-blue) transparent transparent transparent;
+}
+
+.witch-instruction-box::after {
+  content: '';
+  position: absolute;
+  bottom: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: #e3fafc transparent transparent transparent;
+}
+
 /* Shapes playground */
 .shapes-playground {
   position: relative;
   background: #f8fafc;
-  padding: 2rem;
+  padding: 3rem 2rem;
   border-radius: var(--border-radius-md);
   border: 3px dashed #cbd5e1;
 }
@@ -168,7 +224,7 @@
 .shapes-play-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  gap: 2.5rem;
   justify-items: center;
   align-items: center;
 }
@@ -177,7 +233,12 @@
   width: 120px;
   height: 120px;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 
+    inset -8px -8px 15px rgba(0, 0, 0, 0.15),
+    inset 6px 6px 10px rgba(255, 255, 255, 0.35),
+    0 10px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .shape-box:hover {
@@ -188,13 +249,13 @@
   transform: scale(0.95);
 }
 
-/* Shapes geometry */
+/* Shapes geometry with claymorphism */
 .shape-box.circle {
   border-radius: 50%;
 }
 
 .shape-box.square {
-  border-radius: 12px;
+  border-radius: 24px;
 }
 
 .shape-box.triangle {
@@ -204,6 +265,10 @@
   border-right: 60px solid transparent;
   border-bottom: 110px solid;
   background: transparent !important;
+  box-shadow: none !important;
+  border-top: none;
+  border-radius: 0;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
 }
 
 /* Sizes */
@@ -268,6 +333,7 @@
   }
 }
 
+/* Responsive Styles for ShapeGame on Mobile */
 @media (max-width: 768px) {
   .game-stage {
     padding: 1.5rem 1rem;
@@ -303,6 +369,10 @@
     margin-bottom: 1rem;
   }
 
+  .progress-star {
+    font-size: 1.4rem;
+  }
+
   .witch-instruction-box {
     font-size: 1.15rem;
     padding: 1rem;
@@ -311,7 +381,7 @@
   }
 
   .shapes-playground {
-    padding: 1rem;
+    padding: 1.5rem 1rem;
   }
 
   .shapes-play-grid {
@@ -321,12 +391,17 @@
   .shape-box {
     width: 76px;
     height: 76px;
+    box-shadow: 
+      inset -5px -5px 10px rgba(0, 0, 0, 0.15),
+      inset 4px 4px 8px rgba(255, 255, 255, 0.35),
+      0 6px 12px rgba(0, 0, 0, 0.08);
   }
 
   .shape-box.triangle {
     border-left: 38px solid transparent;
     border-right: 38px solid transparent;
     border-bottom: 70px solid;
+    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.1));
   }
 
   .shape-box.size-big {
