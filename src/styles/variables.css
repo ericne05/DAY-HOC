@@ -1,0 +1,42 @@
+/* KidLand Enterprise Color & Design System Tokens */
+:root {
+  /* Playful child-friendly color palette */
+  --primary-pink: #ff6b8b;
+  --primary-pink-hover: #ff5276;
+  --primary-pink-light: rgba(255, 107, 139, 0.15);
+  
+  --primary-blue: #4ba3ff;
+  --primary-blue-hover: #358ee6;
+  --primary-blue-light: rgba(75, 163, 255, 0.15);
+  
+  --primary-yellow: #ffd15c;
+  --primary-yellow-light: rgba(255, 209, 92, 0.15);
+  --primary-yellow-dark: #8a6400;
+  
+  --primary-green: #6bcb77;
+  --primary-green-light: rgba(107, 203, 119, 0.15);
+  
+  --primary-orange: #ff9f43;
+  --primary-orange-light: rgba(255, 159, 67, 0.15);
+  
+  --primary-purple: #a55eea;
+  --primary-purple-light: rgba(165, 94, 234, 0.15);
+  
+  /* Text and neutrals */
+  --text-dark: #2d3748;
+  --text-muted: #718096;
+  --bg-gradient: linear-gradient(135deg, #fff5f5 0%, #f0f7ff 50%, #effaf0 100%);
+  --white-glass: rgba(255, 255, 255, 0.8);
+  --white-glass-heavy: rgba(255, 255, 255, 0.9);
+  
+  /* Layout and borders */
+  --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+  --card-shadow-hover: 0 20px 45px rgba(0, 0, 0, 0.1);
+  --border-radius-lg: 24px;
+  --border-radius-md: 16px;
+  --border-radius-sm: 8px;
+  
+  /* Typography */
+  --font-heading: 'Fredoka', system-ui, -apple-system, sans-serif;
+  --font-body: 'Quicksand', system-ui, -apple-system, sans-serif;
+}

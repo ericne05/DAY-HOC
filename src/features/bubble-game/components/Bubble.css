@@ -1,0 +1,43 @@
+.game-bubble {
+  position: absolute;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: inset -5px -5px 15px rgba(0, 0, 0, 0.15), 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.1s ease;
+  animation: bubbleFloatUp 6s linear forwards;
+}
+
+.game-bubble:hover {
+  transform: scale(1.08);
+}
+
+.game-bubble:active {
+  transform: scale(0.9);
+}
+
+@keyframes bubbleFloatUp {
+  0% {
+    transform: translateY(380px) scale(0.9);
+    opacity: 0.1;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  95% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-100px) scale(0.9);
+    opacity: 0;
+  }
+}
