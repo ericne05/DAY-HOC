@@ -78,14 +78,10 @@ export default function CountingGame({ onFinish, onExit }) {
     // Choose random item
     const item = itemsConfig[Math.floor(Math.random() * itemsConfig.length)];
     
-    // Generate options including correct answer
     const optsSet = new Set([targetCount]);
     while (optsSet.size < 4) {
-      const offset = Math.floor(Math.random() * 5) - 2; // offset -2 to +2
-      const candidate = targetCount + offset;
-      if (candidate >= 1 && candidate <= 10) {
-        optsSet.add(candidate);
-      }
+      const randomVal = Math.floor(Math.random() * 10) + 1; // 1 to 10
+      optsSet.add(randomVal);
     }
 
     const optsArr = Array.from(optsSet).sort((a, b) => a - b);
