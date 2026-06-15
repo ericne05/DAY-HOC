@@ -132,3 +132,48 @@
   z-index: 5;
   animation: confettiExplode 1s ease-out forwards;
 }
+
+@media (max-width: 768px) {
+  .animal-stage {
+    padding: 1.5rem 1rem;
+    border-width: 4px;
+  }
+
+  .game-mascot {
+    width: 100px;
+    height: 100px;
+  }
+
+  .riddle-speech-bubble {
+    font-size: 1.15rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    min-height: auto;
+  }
+
+  .animal-playground {
+    padding: 1.5rem 1rem;
+  }
+
+  .animal-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .animal-option-card {
+    flex-direction: row;
+    padding: 1rem;
+    justify-content: center;
+    gap: 1.5rem;
+    border-width: 3px;
+  }
+
+  .animal-emoji {
+    font-size: 2.5rem;
+    margin-bottom: 0;
+  }
+
+  .animal-label {
+    font-size: 1.2rem;
+  }
+}

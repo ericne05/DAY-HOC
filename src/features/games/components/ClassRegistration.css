@@ -105,3 +105,34 @@
   transform: translateY(4px);
   box-shadow: 0 2px 0 #d63031;
 }
+
+@media (max-width: 768px) {
+  .registration-card {
+    border-width: 5px;
+    padding: 2rem 1.2rem;
+  }
+
+  .registration-title {
+    font-size: 1.7rem;
+  }
+
+  .school-bag-svg {
+    width: 90px;
+    height: 90px;
+  }
+
+  .registration-instruction {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .input-group input {
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+  }
+
+  .registration-btn {
+    padding: 1rem 2rem;
+    font-size: 1.15rem;
+  }
+}

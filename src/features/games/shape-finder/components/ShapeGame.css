@@ -267,3 +267,83 @@
     opacity: 0;
   }
 }
+
+@media (max-width: 768px) {
+  .game-stage {
+    padding: 1.5rem 1rem;
+    border-width: 4px;
+  }
+
+  .game-main-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .witch-svg-img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .game-intro-text {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .primary-game-btn, .exit-game-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .game-status-board {
+    font-size: 1rem;
+    padding: 8px 12px;
+    margin-bottom: 1rem;
+  }
+
+  .witch-instruction-box {
+    font-size: 1.15rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    min-height: auto;
+  }
+
+  .shapes-playground {
+    padding: 1rem;
+  }
+
+  .shapes-play-grid {
+    gap: 1rem;
+  }
+
+  .shape-box {
+    width: 76px;
+    height: 76px;
+  }
+
+  .shape-box.triangle {
+    border-left: 38px solid transparent;
+    border-right: 38px solid transparent;
+    border-bottom: 70px solid;
+  }
+
+  .shape-box.size-big {
+    transform: scale(1.1);
+  }
+  .shape-box.size-big:hover {
+    transform: scale(1.15);
+  }
+
+  .shape-box.size-small {
+    transform: scale(0.8);
+  }
+  .shape-box.size-small:hover {
+    transform: scale(0.85);
+  }
+
+  .game-congrats-text {
+    font-size: 1.1rem;
+  }
+}

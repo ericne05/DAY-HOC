@@ -161,3 +161,47 @@
     opacity: 0;
   }
 }
+
+@media (max-width: 768px) {
+  .counting-stage {
+    padding: 1.5rem 1rem;
+    border-width: 4px;
+  }
+
+  .wizard-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .counting-instruction-box {
+    font-size: 1.15rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    min-height: auto;
+  }
+
+  .counting-playground {
+    padding: 1.5rem 1rem;
+    min-height: 180px;
+    margin-bottom: 1.5rem;
+  }
+
+  .items-canvas {
+    gap: 0.8rem;
+    max-width: 100%;
+  }
+
+  .counting-item-emoji {
+    font-size: 2.2rem;
+  }
+
+  .options-container {
+    gap: 0.8rem;
+  }
+
+  .option-btn {
+    font-size: 1.6rem;
+    padding: 0.6rem 0;
+    border-width: 3px;
+  }
+}

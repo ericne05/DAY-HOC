@@ -198,3 +198,60 @@
   transform: translateY(3px);
   box-shadow: 0 2px 0 #b45309;
 }
+
+@media (max-width: 768px) {
+  .welcome-classroom-bar {
+    padding: 0.8rem 1rem;
+    justify-content: center;
+    border-radius: var(--border-radius-md);
+  }
+
+  .welcome-text {
+    font-size: 1rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .change-class-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .dashboard-heading {
+    font-size: 1.6rem;
+  }
+
+  .dashboard-desc {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .games-menu-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .game-menu-card {
+    min-height: auto;
+    padding: 2rem 1.2rem;
+  }
+
+  .game-card-emoji {
+    font-size: 2.8rem;
+  }
+
+  .game-card-title {
+    font-size: 1.3rem;
+  }
+
+  .game-card-desc {
+    margin-bottom: 1.5rem;
+  }
+
+  .gold-leaderboard-btn {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -177,3 +177,40 @@
 .clear-btn:active {
   transform: scale(0.98);
 }
+
+@media (max-width: 768px) {
+  .leaderboard-card {
+    border-width: 5px;
+    padding: 2rem 1rem;
+  }
+
+  .leaderboard-title {
+    font-size: 1.7rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .board-header, .board-item {
+    grid-template-columns: 0.5fr 2fr 1fr;
+    font-size: 0.95rem;
+    padding: 0.8rem 0.6rem;
+  }
+
+  .record-date {
+    display: none;
+  }
+
+  .board-header span:nth-child(4) {
+    display: none;
+  }
+
+  .leaderboard-actions {
+    gap: 1rem;
+  }
+
+  .back-btn, .clear-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    width: 100%;
+    text-align: center;
+  }
+}
